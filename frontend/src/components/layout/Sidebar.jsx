@@ -69,7 +69,7 @@ const Sidebar = ({ collapsed, onToggle, onCreateBoard, onCommand }) => {
         </div>
         {!collapsed && (
           <span className="flex-1 truncate font-display text-[17px] font-bold tracking-tight text-ink">
-            Flowboard
+            Driftly
           </span>
         )}
         {!collapsed && (
