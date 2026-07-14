@@ -8,7 +8,7 @@ import FinalCTA from "../components/landing/FinalCTA";
 import Footer from "../components/landing/Footer";
 
 const Landing = () => (
-  <div className="min-h-screen overflow-x-clip bg-white">
+  <div className="min-h-screen overflow-x-clip bg-bg">
     <Navbar />
     {/* Hero variation A — centered headline + overlapping cards (original) */}
     <Hero />

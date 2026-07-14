@@ -26,7 +26,7 @@ const features = [
 // mock tasks shown inside the flagship tile
 const genTasks = [
   ["Set up referral rewards", "#0ea5e9"],
-  ["Build the invite flow", "#2f8159"],
+  ["Build the invite flow", "#ff4500"],
   ["Track conversions", "#d97706"],
 ];
 

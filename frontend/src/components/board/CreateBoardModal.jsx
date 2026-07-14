@@ -9,7 +9,7 @@ import { cn } from "../../lib/utils";
 
 // Earthy palette that complements the forest-green theme.
 const COLORS = [
-  "#2f8159", // forest (brand default)
+  "#ff4500", // fiery orange (brand default)
   "#2c9c8f", // teal
   "#6f9b54", // olive / sage
   "#d4a23c", // amber

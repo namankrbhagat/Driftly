@@ -13,26 +13,26 @@ const AuthAside = ({
       <div className="pointer-events-none absolute inset-0 mix-blend-screen">
         <motion.div
           className="absolute left-[-15%] top-[8%] h-72 w-[70%] rounded-[50%] blur-3xl"
-          style={{ background: "radial-gradient(closest-side, rgba(124,214,164,0.7), transparent)" }}
+          style={{ background: "radial-gradient(closest-side, rgba(255,140,0,0.6), transparent)" }}
           animate={{ x: ["-6%", "16%", "-6%"], y: [0, 30, 0], rotate: [-8, 8, -8] }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute right-[-15%] top-[34%] h-80 w-[72%] rounded-[50%] blur-3xl"
-          style={{ background: "radial-gradient(closest-side, rgba(150,236,186,0.55), transparent)" }}
+          style={{ background: "radial-gradient(closest-side, rgba(255,165,0,0.45), transparent)" }}
           animate={{ x: ["8%", "-16%", "8%"], y: [0, -26, 0], rotate: [8, -8, 8] }}
           transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute bottom-[6%] left-1/4 h-64 w-[55%] rounded-[50%] blur-3xl"
-          style={{ background: "radial-gradient(closest-side, rgba(196,250,216,0.5), transparent)" }}
+          style={{ background: "radial-gradient(closest-side, rgba(255,200,150,0.4), transparent)" }}
           animate={{ x: ["-10%", "14%", "-10%"], y: [0, 18, 0], scale: [1, 1.18, 1] }}
           transition={{ duration: 28, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>
 
       {/* darkening tint so the white cards pop */}
-      <div className="pointer-events-none absolute inset-0 bg-[#0b1f13]/10" />
+      <div className="pointer-events-none absolute inset-0 bg-black/25" />
 
       {/* soft depth glows */}
       <div className="pointer-events-none absolute -right-20 -top-24 h-80 w-80 rounded-full bg-white/10 blur-3xl" />

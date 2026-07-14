@@ -5,7 +5,7 @@ const CARDS = {
   1: { title: "Design checkout UI", color: "#0ea5e9" },
   2: { title: "Integrate Stripe payments", color: "#d97706" },
   3: { title: "Real-time presence", color: "#e11d48" },
-  4: { title: "Ship sprint summary", color: "#2f8159" },
+  4: { title: "Ship sprint summary", color: "#ff4500" },
   5: { title: "Write API tests", color: "#8b5cf6" },
   6: { title: "Auth & onboarding", color: "#0ea5e9" },
 };

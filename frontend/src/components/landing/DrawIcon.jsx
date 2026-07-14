@@ -31,9 +31,9 @@ const DrawIcon = ({
         <svg aria-hidden="true" width="0" height="0" className="absolute">
           <defs>
             <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#57a47b" />
-              <stop offset="55%" stopColor="#2f8159" />
-              <stop offset="100%" stopColor="#1d5038" />
+              <stop offset="0%" stopColor="#ff7830" />
+              <stop offset="55%" stopColor="#ff4500" />
+              <stop offset="100%" stopColor="#b32d00" />
             </linearGradient>
           </defs>
         </svg>

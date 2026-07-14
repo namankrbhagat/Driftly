@@ -34,7 +34,7 @@ const byId = Object.fromEntries(team.map((u) => [u.id, u]));
 
 /* ---------------------------------- boards ----------------------------------- */
 const boardMetas = [
-  { id: "b-roadmap", title: "Product Roadmap", description: "Quarterly planning, OKRs and feature prioritization.", color: "#2f8159", owner: "u-alex", members: ["u-maya", "u-diego", "u-priya"], updatedDaysAgo: 0.3,
+  { id: "b-roadmap", title: "Product Roadmap", description: "Quarterly planning, OKRs and feature prioritization.", color: "#ff4500", owner: "u-alex", members: ["u-maya", "u-diego", "u-priya"], updatedDaysAgo: 0.3,
     titles: ["Define Q3 OKRs", "Prioritize backlog", "User interview synthesis", "Pricing experiment", "Competitor analysis", "Roadmap review", "Define success metrics", "Beta feedback triage", "Planning deck", "Stakeholder alignment"] },
   { id: "b-mobile", title: "Mobile App Launch", description: "Ship the iOS & Android apps to the stores.", color: "#c26a45", owner: "u-alex", members: ["u-sam", "u-lena"], updatedDaysAgo: 1.2,
     titles: ["App store listing", "Push notifications", "Crash reporting", "Onboarding screens", "TestFlight beta", "Performance profiling", "Deep linking", "Release checklist"] },
@@ -149,7 +149,7 @@ export const getBoardDetail = (id) => {
     created_at: iso(),
   }));
   return {
-    board: { id, title: "Untitled board", description: null, color: "#2f8159", owner_id: currentUser.id, created_at: iso(), updated_at: iso() },
+    board: { id, title: "Untitled board", description: null, color: "#ff4500", owner_id: currentUser.id, created_at: iso(), updated_at: iso() },
     columns,
     tasks: [],
     members: [{ ...currentUser, role: "owner", joined_at: iso() }],
@@ -162,7 +162,7 @@ export const createBoard = (data) => {
     id: uid("b"),
     title: data.title,
     description: data.description || null,
-    color: data.color || "#2f8159",
+    color: data.color || "#ff4500",
     owner_id: currentUser.id,
     created_at: iso(),
     updated_at: iso(),

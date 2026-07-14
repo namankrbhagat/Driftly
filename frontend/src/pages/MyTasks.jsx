@@ -81,7 +81,7 @@ const MyTasks = () => {
         <div className="mx-auto max-w-[1600px] px-6 py-8 md:px-8">
           {/* KPIs */}
           <div className="mb-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            <MiniStat icon={ListTodo} label="Assigned to you" value={stats.total} tint="#2f8159" />
+            <MiniStat icon={ListTodo} label="Assigned to you" value={stats.total} tint="#ff4500" />
             <MiniStat icon={AlertTriangle} label="Overdue" value={stats.overdue} tint="#e11d48" />
             <MiniStat icon={CalendarClock} label="Due this week" value={stats.dueSoon} tint="#d97706" />
             <MiniStat icon={CheckSquare} label="Completed" value={stats.done} tint="#10b981" />
@@ -136,7 +136,7 @@ const MyTasks = () => {
               {grouped.map((g) => (
                 <div key={g.id}>
                   <div className="mb-3 flex items-center gap-2">
-                    <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: g.color || "#2f8159" }} />
+                    <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: g.color || "#ff4500" }} />
                     <h3 className="font-display text-sm font-semibold tracking-tight">{g.title}</h3>
                     <span className="rounded-full bg-surface-2 px-2 py-0.5 text-[11px] font-medium tabular text-muted">
                       {g.items.length}

@@ -191,14 +191,14 @@ const Dashboard = () => {
                     {/* color accent strip */}
                     <span
                       className="absolute inset-x-0 top-0 h-1"
-                      style={{ background: b.color || "#2f8159" }}
+                      style={{ background: b.color || "#ff4500" }}
                     />
                     <div className="mb-3.5 flex items-start justify-between">
                       <div
                         className="flex h-11 w-11 items-center justify-center rounded-2xl"
                         style={{
-                          backgroundColor: `${b.color || "#2f8159"}1f`,
-                          color: b.color || "#2f8159",
+                          backgroundColor: `${b.color || "#ff4500"}1f`,
+                          color: b.color || "#ff4500",
                         }}
                       >
                         <LayoutGrid className="h-5 w-5" />
@@ -279,12 +279,12 @@ const Legend = ({ color, label, value }) => (
 // violet shade scaled to a bar's relative height — taller = deeper iris
 const barShade = (pct) =>
   pct >= 0.8
-    ? "#1d5038"
+    ? "#b32d00"
     : pct >= 0.5
-      ? "#2f8159"
+      ? "#ff4500"
       : pct >= 0.25
-        ? "#57a47b"
-        : "#8bc4a4";
+        ? "#ff7830"
+        : "#ffa47a";
 
 // ── Board analytics (vertical pill-bar chart + ranked breakdown) ──────────
 const TasksByBoard = ({ boards, className }) => {
@@ -308,7 +308,7 @@ const TasksByBoard = ({ boards, className }) => {
             {boards.map((b, i) => {
               const count = Number(b.task_count || 0);
               const pct = count / max;
-              const color = b.color || "#2f8159";
+              const color = b.color || "#ff4500";
               return (
                 <Link
                   key={b.id}
@@ -366,7 +366,7 @@ const TasksByBoard = ({ boards, className }) => {
                   >
                     <span
                       className="h-2.5 w-2.5 shrink-0 rounded-full"
-                      style={{ backgroundColor: b.color || "#2f8159" }}
+                      style={{ backgroundColor: b.color || "#ff4500" }}
                     />
                     <span className="flex-1 truncate text-[13px] font-medium text-ink transition-colors group-hover:text-brand-600">
                       {b.title}
@@ -436,7 +436,7 @@ const WorkspaceDonut = ({ owned, shared, boards = [], className }) => {
                 cy="70"
                 r={R}
                 fill="none"
-                stroke="#2f8159"
+                stroke="#ff4500"
                 strokeWidth={SW}
                 strokeDasharray={`${ownedLen} ${C}`}
               />
@@ -447,7 +447,7 @@ const WorkspaceDonut = ({ owned, shared, boards = [], className }) => {
                 cy="70"
                 r={R}
                 fill="none"
-                stroke="#8bc4a4"
+                stroke="#ffa47a"
                 strokeWidth={SW}
                 strokeDasharray={`${sharedLen} ${C}`}
                 strokeDashoffset={-ownedLen}
@@ -464,8 +464,8 @@ const WorkspaceDonut = ({ owned, shared, boards = [], className }) => {
           </div>
         </div>
         <div className="flex flex-1 flex-col gap-3">
-          <Legend color="#2f8159" label="Owned" value={owned} />
-          <Legend color="#8bc4a4" label="Shared" value={shared} />
+          <Legend color="#ff4500" label="Owned" value={owned} />
+          <Legend color="#ffa47a" label="Shared" value={shared} />
         </div>
       </div>
 
@@ -512,7 +512,7 @@ const RecentBoards = ({ boards, className }) => (
     </SectionTitle>
     <div className="flex flex-col gap-0.5">
       {boards.map((b) => {
-        const color = b.color || "#2f8159";
+        const color = b.color || "#ff4500";
         return (
           <Link
             key={b.id}

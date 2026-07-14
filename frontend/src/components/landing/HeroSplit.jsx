@@ -56,7 +56,7 @@ const HeroSplit = () => (
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(36rem 20rem at 80% -10%, rgba(47,129,89,0.12), transparent 70%)",
+              "radial-gradient(36rem 20rem at 80% -10%, rgba(255, 69, 0, 0.08), transparent 70%)",
           }}
         />
 

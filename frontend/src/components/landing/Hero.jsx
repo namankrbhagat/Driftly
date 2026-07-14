@@ -15,7 +15,7 @@ const EASE = [0.16, 1, 0.3, 1];
 const aiTasks = [
   ["Design checkout UI", "#0ea5e9"],
   ["Integrate payments", "#e11d48"],
-  ["Write API tests", "#2f8159"],
+  ["Write API tests", "#ff4500"],
 ];
 
 // mini kanban columns shown inside the app preview
@@ -46,25 +46,25 @@ const Hero = () => (
           <div className="absolute inset-0 mix-blend-screen">
             <motion.div
               className="absolute left-[-15%] top-[6%] h-56 w-[70%] rounded-[50%] blur-3xl"
-              style={{ background: "radial-gradient(closest-side, rgba(124,214,164,0.85), transparent)" }}
+              style={{ background: "radial-gradient(closest-side, rgba(255,140,0,0.75), transparent)" }}
               animate={{ x: ["-6%", "18%", "-6%"], y: [0, 32, 0], rotate: [-10, 8, -10] }}
               transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
             />
             <motion.div
               className="absolute right-[-15%] top-[22%] h-64 w-[72%] rounded-[50%] blur-3xl"
-              style={{ background: "radial-gradient(closest-side, rgba(150,236,186,0.7), transparent)" }}
+              style={{ background: "radial-gradient(closest-side, rgba(255,165,0,0.6), transparent)" }}
               animate={{ x: ["8%", "-18%", "8%"], y: [0, -28, 0], rotate: [8, -10, 8] }}
               transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
             />
             <motion.div
               className="absolute left-1/4 top-[42%] h-52 w-[58%] rounded-[50%] blur-3xl"
-              style={{ background: "radial-gradient(closest-side, rgba(196,250,216,0.6), transparent)" }}
+              style={{ background: "radial-gradient(closest-side, rgba(255,200,150,0.5), transparent)" }}
               animate={{ x: ["-12%", "16%", "-12%"], y: [0, 22, 0], scale: [1, 1.22, 1] }}
               transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
             />
             <motion.div
               className="absolute right-[6%] top-[2%] h-44 w-[40%] rounded-[50%] blur-3xl"
-              style={{ background: "radial-gradient(closest-side, rgba(90,200,140,0.7), transparent)" }}
+              style={{ background: "radial-gradient(closest-side, rgba(255,69,0,0.6), transparent)" }}
               animate={{ x: ["6%", "-12%", "6%"], y: [0, 18, 0], rotate: [6, -8, 6] }}
               transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
             />
@@ -214,14 +214,14 @@ const Hero = () => (
               >
                 <defs>
                   <linearGradient id="hero-spark" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#2f8159" stopOpacity="0.26" />
-                    <stop offset="100%" stopColor="#2f8159" stopOpacity="0" />
+                    <stop offset="0%" stopColor="#ff4500" stopOpacity="0.26" />
+                    <stop offset="100%" stopColor="#ff4500" stopOpacity="0" />
                   </linearGradient>
                 </defs>
                 <path
                   d="M0,92 C52,82 78,40 120,52 C166,66 188,22 236,36 C284,50 308,18 356,28 C404,38 436,60 480,24"
                   fill="none"
-                  stroke="#2f8159"
+                  stroke="#ff4500"
                   strokeWidth="3"
                   strokeLinecap="round"
                 />

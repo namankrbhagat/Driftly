@@ -36,7 +36,7 @@ export const initials = (name = "") =>
 
 /** Deterministic avatar color from a string id — earthy palette to match the green theme. */
 export const colorFromId = (id = "") => {
-  const palette = ["#2f8159", "#2c9c8f", "#6f9b54", "#5f7da6", "#c26a45", "#9a7b3c", "#a05d7d"];
+  const palette = ["#ff4500", "#2c9c8f", "#6f9b54", "#5f7da6", "#c26a45", "#9a7b3c", "#a05d7d"];
   let hash = 0;
   for (let i = 0; i < id.length; i++) hash = id.charCodeAt(i) + ((hash << 5) - hash);
   return palette[Math.abs(hash) % palette.length];

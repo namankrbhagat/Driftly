@@ -72,7 +72,7 @@ const Settings = () => {
           {/* Workspace */}
           <Card title="Workspace" description="Your activity at a glance.">
             <div className="grid grid-cols-3 gap-3">
-              <Metric icon={FolderKanban} label="Boards" value={boards.length} tint="#2f8159" />
+              <Metric icon={FolderKanban} label="Boards" value={boards.length} tint="#ff4500" />
               <Metric icon={CheckSquare} label="Tasks" value={tasks.length} tint="#0ea5e9" />
               <Metric icon={Users} label="People" value={members.length} tint="#10b981" />
             </div>

@@ -21,7 +21,7 @@ const FinalCTA = () => (
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(40rem 22rem at 50% -20%, rgba(47,129,89,0.14), transparent 70%)",
+            "radial-gradient(40rem 22rem at 50% -20%, rgba(255, 69, 0, 0.08), transparent 70%)",
         }}
       />
       <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rotate-12 rounded-[2rem] border border-line" />
