@@ -1,21 +1,21 @@
 const {verifyToken} = require("../utils/jwt");
-const apiError = require("../utils/apiErrors");
+const ApiError = require("../utils/ApiErrors");
 
 const requireAuth = (req, _res, next) => {
   try{
     const header = req.headers.authorization || "";
     const token = header.startsWith("Bearer ") ? header.slice(7) : null;
     if (!token) {
-      throw apiError.UnauthorizedError("No token provided");
+      throw ApiError.unauthorized("No token provided");
     }
     const decoded = verifyToken(token);
     req.user = {id: decoded.id, email: decoded.email,name: decoded.name};
     next();
   } catch (error) {
-    if(error.isapiError){
+    if(error.isApiError){
       next(error);
     }
-    next(apiError.UnauthorizedError("Invalid token"));
+    next(ApiError.unauthorized("Invalid token"));
   }
 };
 
