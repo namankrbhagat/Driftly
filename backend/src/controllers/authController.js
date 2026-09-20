@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const {query} = require("../config/db");
 const {generateToken} = require("../utils/jwt");
-const ApiError = require("../utils/ApiErrors");
+const ApiError = require("../utils/ApiError");
 const asyncHandler = require("../utils/asyncHandler");
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

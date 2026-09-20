@@ -1,5 +1,5 @@
 const {verifyToken} = require("../utils/jwt");
-const ApiError = require("../utils/ApiErrors");
+const ApiError = require("../utils/ApiError");
 
 const requireAuth = (req, _res, next) => {
   try{
