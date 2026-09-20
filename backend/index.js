@@ -1,8 +1,10 @@
 require("dotenv").config();
+const http = require("http");
 const express = require("express");
 const cors = require("cors");
 const apiRoutes = require("./src/routes");
 const {errorHandler,notFoundHandler} = require("./src/middleware/errorHandler");
+const { initSocket } = require("./src/socket/realtime");
 
 const app = express();
 
@@ -18,12 +20,16 @@ app.get("/", (_req, res) => {
   res.json({ message: "Welcome to the Driftly API" });
 });
 app.use("/api", apiRoutes);
+
 app.use(errorHandler);
 app.use(notFoundHandler);
 
+const server = http.createServer(app);
+initSocket(server);
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`API + Socket.io is running on port ${PORT}`);
 });
 
 module.exports = app;
