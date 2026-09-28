@@ -63,7 +63,7 @@ const getBoard = asyncHandler(async(req,res)=>{
       `SELECT t.*,
           a.name AS assignee_name, a.email AS assignee_email,a.avatar_url AS assignee_avatar
           FROM tasks t
-          LEFT JOIN users a ON a.id = t.assignee_id
+          LEFT JOIN users a ON a.id = t.assigned_to
           WHERE t.board_id = $1
           ORDER BY t.position ASC`,
           [boardId]

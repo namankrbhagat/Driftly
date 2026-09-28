@@ -18,7 +18,7 @@ const empty = (columnId) => ({
   description: "",
   priority: "medium",
   due_date: "",
-  assignee_id: "",
+  assigned_to: "",
   column_id: columnId || "",
 });
 
@@ -36,7 +36,7 @@ const TaskModal = ({ open, onClose, task, defaultColumnId, columns, members, act
         description: task.description || "",
         priority: task.priority || "medium",
         due_date: toDateInput(task.due_date),
-        assignee_id: task.assignee_id || "",
+        assigned_to: task.assigned_to || "",
         column_id: task.column_id,
       });
     } else {
@@ -55,7 +55,7 @@ const TaskModal = ({ open, onClose, task, defaultColumnId, columns, members, act
       description: form.description.trim() || null,
       priority: form.priority,
       due_date: form.due_date || null,
-      assignee_id: form.assignee_id || null,
+      assigned_to: form.assigned_to || null,
     };
     try {
       if (isEdit) {
@@ -103,7 +103,7 @@ const TaskModal = ({ open, onClose, task, defaultColumnId, columns, members, act
         </div>
 
         <div className="grid grid-cols-2 gap-4">
-          <Select label="Assignee" value={form.assignee_id} onChange={set("assignee_id")}>
+          <Select label="Assignee" value={form.assigned_to} onChange={set("assigned_to")}>
             <option value="">Unassigned</option>
             {members.map((m) => (
               <option key={m.id} value={m.id}>{m.name}</option>

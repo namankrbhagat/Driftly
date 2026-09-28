@@ -39,7 +39,7 @@ const BoardPage = () => {
   const filteredTasks = useMemo(() => {
     return b.tasks.filter((t) => {
       if (filterPriority && t.priority !== filterPriority) return false;
-      if (filterAssignee && t.assignee_id !== filterAssignee) return false;
+      if (filterAssignee && t.assigned_to !== filterAssignee) return false;
       if (search) {
         const q = search.toLowerCase();
         if (!t.title.toLowerCase().includes(q) && !(t.description || "").toLowerCase().includes(q))

@@ -22,7 +22,7 @@ const MyTasks = () => {
   const [now] = useState(() => Date.now());
 
   const mine = useMemo(
-    () => tasks.filter((t) => t.assignee_id && t.assignee_id === user?.id),
+    () => tasks.filter((t) => t.assigned_to && t.assigned_to === user?.id),
     [tasks, user]
   );
 

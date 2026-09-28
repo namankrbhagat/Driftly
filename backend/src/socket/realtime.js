@@ -1,7 +1,7 @@
 const { Server } = require("socket.io");
 const { verifyToken } = require("../utils/jwt");
 const { query } = require("../config/db");
-const { setIO, boardRoom } = require("./realtime");
+const { setIO, boardRoom } = require("../realtime/index");
 
 const userCanAccessBoard = async (userId, boardId) => {
   const { rows } = await query(

@@ -2,7 +2,7 @@ const {query} = require("../config/db");
 
 let io = null;
 
-const setIo = (instance) => {
+const setIO = (instance) => {
   io = instance;
 }
 
@@ -28,4 +28,4 @@ const logActivity = async ({boardId, userId, action,message,metadata}) => {
   return activity;
 }
 
-module.exports = {setIo, emitToBoard, logActivity, boardRoom};
+module.exports = {setIO, emitToBoard, logActivity, boardRoom};

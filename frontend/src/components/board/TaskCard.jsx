@@ -40,9 +40,9 @@ const TaskCard = ({ task, onClick, overlay = false }) => {
       )}
 
       <div className="mt-3.5 flex items-center justify-between border-t border-line/70 pt-3">
-        {task.assignee_id ? (
+        {task.assigned_to ? (
           <div className="flex items-center gap-1.5">
-            <Avatar name={task.assignee_name} id={task.assignee_id} src={task.assignee_avatar} size="xs" />
+            <Avatar name={task.assignee_name} id={task.assigned_to} src={task.assignee_avatar} size="xs" />
             <span className="max-w-[7rem] truncate text-[11px] text-muted">{task.assignee_name}</span>
           </div>
         ) : (

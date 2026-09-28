@@ -16,7 +16,7 @@ const listTasks = asyncHandler(async (req, res) => {
 
     if (req.query.assignee) {
         params.push(req.query.assignee);
-        filters.push(`t.assignee_id = $${params.length}`);
+        filters.push(`t.assigned_to = $${params.length}`);
     }
 
     if (req.query.column) {
@@ -38,7 +38,7 @@ const listTasks = asyncHandler(async (req, res) => {
                a.email AS assignee_email,
                a.avatar_url AS assignee_avatar
         FROM tasks t
-        LEFT JOIN users a ON a.id = t.assignee_id
+        LEFT JOIN users a ON a.id = t.assigned_to
         WHERE ${filters.join(" AND ")}
         ORDER BY t.position ASC
         `,
@@ -56,7 +56,7 @@ const fetchTask = async (taskId) => {
                a.email AS assignee_email,
                a.avatar_url AS assignee_avatar
         FROM tasks t
-        LEFT JOIN users a ON a.id = t.assignee_id
+        LEFT JOIN users a ON a.id = t.assigned_to
         WHERE t.id = $1
         `,
         [taskId]
@@ -82,7 +82,7 @@ const createTask = asyncHandler(async (req, res) => {
         title: rawTitle,
         description,
         due_date,
-        assignee_id
+        assigned_to
     } = req.body;
 
     const title = (rawTitle || "").trim();
@@ -114,7 +114,7 @@ const createTask = asyncHandler(async (req, res) => {
             description,
             priority,
             due_date,
-            assignee_id,
+            assigned_to,
             position,
             created_by
         )
@@ -128,7 +128,7 @@ const createTask = asyncHandler(async (req, res) => {
             description || null,
             priority,
             due_date || null,
-            assignee_id || null,
+            assigned_to || null,
             posRes.rows[0].pos,
             req.user.id
         ]
@@ -155,7 +155,7 @@ const updateTask = asyncHandler(async (req, res) => {
         description,
         priority,
         due_date,
-        assignee_id
+        assigned_to
     } = req.body;
 
     if (
@@ -172,7 +172,7 @@ const updateTask = asyncHandler(async (req, res) => {
             description = COALESCE($4, description),
             priority = COALESCE($5, priority),
             due_date = COALESCE($6, due_date),
-            assignee_id = $7,
+            assigned_to = $7,
             updated_at = now()
         WHERE id = $1 AND board_id = $2
         RETURNING id
@@ -184,7 +184,7 @@ const updateTask = asyncHandler(async (req, res) => {
             description ?? null,
             priority ?? null,
             due_date ?? null,
-            assignee_id === undefined ? null : assignee_id
+            assigned_to === undefined ? null : assigned_to
         ]
     );
 

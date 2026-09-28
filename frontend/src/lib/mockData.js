@@ -56,7 +56,7 @@ const DUE_CYCLE = [-9, 2, null, 5, -2, 14, 1, null, 20, -4, 6, 9, 3, null, 12];
 
 const attachAssignee = (task, user) => ({
   ...task,
-  assignee_id: user ? user.id : null,
+  assigned_to: user ? user.id : null,
   assignee_name: user ? user.name : null,
   assignee_email: user ? user.email : null,
   assignee_avatar: user ? user.avatar_url : null,
@@ -202,13 +202,13 @@ export const createTask = (boardId, data) =>
       created_at: iso(),
       updated_at: iso(),
     },
-    data.assignee_id ? byId[data.assignee_id] || null : null
+    data.assigned_to ? byId[data.assigned_to] || null : null
   );
 
 export const updateTask = (boardId, taskId, data) =>
   attachAssignee(
     { id: taskId, board_id: boardId, ...data, updated_at: iso() },
-    data.assignee_id ? byId[data.assignee_id] || null : null
+    data.assigned_to ? byId[data.assigned_to] || null : null
   );
 
 export const createColumn = (boardId, data) => ({
