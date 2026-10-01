@@ -15,8 +15,8 @@ const ActivityFeed = ({ open, onClose, boardId }) => {
     setLoading(true);
     boardApi
       .activity(boardId, 50)
-      .then(setActivities)
-      .catch(() => {})
+      .then((res) => setActivities(Array.isArray(res) ? res : []))
+      .catch(() => setActivities([]))
       .finally(() => setLoading(false));
   }, [open, boardId]);
 

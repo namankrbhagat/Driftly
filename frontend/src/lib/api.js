@@ -48,7 +48,7 @@ export const boardApi = {
   update: (id, data) => api.patch(`/boards/${id}`, data).then((r) => r.data.board),
   remove: (id) => api.delete(`/boards/${id}`).then((r) => r.data),
   activity: (id, limit = 30) =>
-    api.get(`/boards/${id}/activity`, { params: { limit } }).then((r) => r.data.activities),
+    api.get(`/boards/${id}/activity`, { params: { limit } }).then((r) => r.data.activity || r.data.activities || []),
   addMember: (id, data) => api.post(`/boards/${id}/members`, data).then((r) => r.data.member),
   removeMember: (id, userId) => api.delete(`/boards/${id}/members/${userId}`).then((r) => r.data),
 };
@@ -80,7 +80,7 @@ export const aiApi = {
     api.post(`/boards/${boardId}/ai/generate-tasks`, data).then((r) => r.data),
   breakdown: (boardId, data) =>
     api.post(`/boards/${boardId}/ai/breakdown`, data).then((r) => r.data.subtasks),
-  summary: (boardId) => api.post(`/boards/${boardId}/ai/summary`).then((r) => r.data.summary),
+  summary: (boardId) => api.post(`/boards/${boardId}/ai/summary`).then((r) => r.data.summary || r.data),
 };
 
 

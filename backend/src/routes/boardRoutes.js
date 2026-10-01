@@ -33,5 +33,6 @@ router.delete("/:boardId/tasks/:taskId",requireBoardAccess,task.deleteTask);
 router.post("/:boardId/ai/generate-tasks",requireBoardAccess,ai.generateTasks);
 router.post("/:boardId/ai/breakdown",requireBoardAccess,ai.breakdownTask);
 router.post("/:boardId/ai/summarize",requireBoardAccess,ai.summarizeBoard);
+router.post("/:boardId/ai/summary",requireBoardAccess,ai.summarizeBoard);
 
 module.exports = router;

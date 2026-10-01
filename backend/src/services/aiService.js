@@ -1,19 +1,23 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const ApiError = require("../utils/ApiError");
 
-const MODEL = process.env.GEMINI_MODEL || "gemini-2.0-flash";
+const MODELS_TO_TRY = Array.from(new Set([
+  process.env.GEMINI_MODEL,
+  "gemini-3.8-flash",
+  "gemini-2.5-flash",
+  "gemini-1.5-flash"
+])).filter(Boolean);
 
 let genAI = null;
-const getModel = () => {
+const getGenAI = () => {
   const key = process.env.GEMINI_API_KEY;
   if (!key || key === "your-gemini-api-key") {
     throw new ApiError("GEMINI API Key is not configured on the server", 503);
   }
-
   if (!genAI) {
     genAI = new GoogleGenerativeAI(key);
   }
-  return genAI.getGenerativeModel({ model: MODEL });
+  return genAI;
 };
 
 const extractJson = (text) => {
@@ -32,24 +36,55 @@ const extractJson = (text) => {
 };
 
 const runPrompt = async (prompt) => {
-  try {
-    const model = getModel();
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    return response.text();
-  } catch (error) {
-    if (error.isApiError) throw error;
-    console.error("Gemini request failed:", error.message || error);
-    const status = error.status || error.statusCode;
-    if (status === 429) {
-      throw new ApiError("AI quota exceeded. Check your Gemini plan/billing and try again later", 429);
-    }
-    if (status === 400 || status === 401 || status === 403) {
-      throw new ApiError(`AI request rejected: ${error.message || "verify API key and model"}`, 503);
-    }
+  const instance = getGenAI();
+  let lastError = null;
 
-    throw new ApiError(`AI service error: ${error.message || "temporarily unavailable"}`, 502);
+  for (const modelName of MODELS_TO_TRY) {
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        const model = instance.getGenerativeModel({ model: modelName });
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        return response.text();
+      } catch (error) {
+        if (error.isApiError) throw error;
+        lastError = error;
+        const status = error.status || error.statusCode;
+
+        const is503 = status === 503 ||
+          (error.message && (
+            error.message.includes("503") ||
+            error.message.toLowerCase().includes("high demand") ||
+            error.message.toLowerCase().includes("service unavailable")
+          ));
+
+        if (is503 && attempt < 3) {
+          console.warn(`Gemini model '${modelName}' 503 high demand (attempt ${attempt}/3). Retrying in 1s...`);
+          await new Promise((r) => setTimeout(r, 1000));
+          continue;
+        }
+
+        const isNotFound = status === 404 ||
+          (error.message && (error.message.includes("404") || error.message.toLowerCase().includes("not found")));
+
+        if (isNotFound) {
+          console.warn(`Gemini model '${modelName}' not found, trying next fallback model...`);
+          break; // Break attempt loop to try next model in outer loop
+        }
+
+        if (status === 429) {
+          throw new ApiError("AI quota exceeded. Check your Gemini plan/billing and try again later", 429);
+        }
+        if (status === 400 || status === 401 || status === 403) {
+          throw new ApiError(`AI request rejected: ${error.message || "verify API key"}`, 503);
+        }
+        break;
+      }
+    }
   }
+
+  console.error("Gemini request failed:", lastError?.message || lastError);
+  throw new ApiError(`AI service error: ${lastError?.message || "temporarily unavailable"}`, 502);
 };
 
 const VALID_PRIORITIES = ["low", "medium", "high", "urgent"];
