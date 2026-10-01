@@ -2,7 +2,6 @@ const {query,withTransaction} = require("../config/db");
 const ApiError = require("../utils/ApiError");
 const asyncHandler = require("../utils/asyncHandler");
 const {emitToBoard,logActivity} = require("../realtime/index");
-const { get } = require("../routes");
 
 const DEFAULT_BOARD_COLUMNS = ["Todo","In progress","Review","Done"];
 
@@ -11,7 +10,7 @@ const listBoards = asyncHandler(async(req,res)=>{
       `SELECT b.*,
                 (b.owner_id = $1) as is_owner,
                 (SELECT COUNT(*) FROM tasks t WHERE t.board_id = b.id) as task_count,
-                (SELECT COUNT(*) FROM board_members m WHERE m.board_id = b.id) as member_count,
+                (SELECT COUNT(*) FROM board_members m WHERE m.board_id = b.id) as member_count
                 FROM boards b
                 LEFT JOIN board_members mm ON mm.board_id = b.id AND mm.user_id = $1
                 WHERE b.owner_id = $1 OR mm.user_id = $1
@@ -91,9 +90,9 @@ const updateBoard = asyncHandler(async(req,res)=>{
   
   const {rows} = await query(
     `UPDATE boards 
-      SET title = COALESCE($1,title),
-      description = COALESCE($2,description),
-      color = COALESCE($3,color),
+      SET title = COALESCE($2,title),
+      description = COALESCE($3,description),
+      color = COALESCE($4,color),
       updated_at = now()
       WHERE id = $1
       RETURNING *`,
@@ -107,8 +106,7 @@ const updateBoard = asyncHandler(async(req,res)=>{
 
 const deleteBoard = asyncHandler(async(req,res)=>{
   if(req.board.role !== "owner"){
-    throw ApiError.forbidden("Only owner can delete columns");
-
+    throw ApiError.forbidden("Only owner can delete board");
   }
 
   await query(`DELETE FROM boards WHERE id = $1`,[req.board.id]);
@@ -129,15 +127,6 @@ const getActvity = asyncHandler(async(req,res) => {
   );
   return res.json({activity:rows});
 });
-
-module.exports = {
-  listBoards,
-  createBoard,
-  getBoard,
-  updateBoard,
-  deleteBoard,
-  getActvity
-};
 
 const addMember = asyncHandler(async(req,res)=>{
   if(req.board.role !== "owner" && req.board.role !== "admin"){
@@ -172,17 +161,17 @@ const addMember = asyncHandler(async(req,res)=>{
 });
 
 const removeMember = asyncHandler(async(req,res) => {
-  if(req.board.role !== role && req.board.role !== "admin"){
+  if(req.board.role !== "owner" && req.board.role !== "admin"){
     throw ApiError.forbidden("Only owners or admins can remove members");
   }
   const {userId} = req.params;
   if (userId === req.board.owner_id) throw ApiError.badRequest("Cannot remove the board owner");
 
-  await query("DELETE FROM board_members WHERE board_id = &1 AND user_id = $2",
-    [req.baord.id,userId]);
+  await query("DELETE FROM board_members WHERE board_id = $1 AND user_id = $2",
+    [req.board.id,userId]);
 
   res.json({success:true});
-})
+});
 
 module.exports = {
   listBoards,
@@ -193,4 +182,4 @@ module.exports = {
   getActvity,
   addMember,
   removeMember
-}
+};

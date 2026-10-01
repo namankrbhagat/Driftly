@@ -28,7 +28,7 @@ const server = http.createServer(app);
 initSocket(server);
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`API + Socket.io is running on port ${PORT}`);
 });
 

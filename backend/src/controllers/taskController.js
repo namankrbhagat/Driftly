@@ -165,27 +165,38 @@ const updateTask = asyncHandler(async (req, res) => {
         throw ApiError.badRequest("Invalid priority");
     }
 
+    const setClauses = ["updated_at = now()"];
+    const params = [req.params.taskId, req.board.id];
+
+    if (title !== undefined) {
+        params.push(title);
+        setClauses.push(`title = $${params.length}`);
+    }
+    if (description !== undefined) {
+        params.push(description);
+        setClauses.push(`description = $${params.length}`);
+    }
+    if (priority !== undefined) {
+        params.push(priority);
+        setClauses.push(`priority = $${params.length}`);
+    }
+    if (due_date !== undefined) {
+        params.push(due_date);
+        setClauses.push(`due_date = $${params.length}`);
+    }
+    if (assigned_to !== undefined) {
+        params.push(assigned_to);
+        setClauses.push(`assigned_to = $${params.length}`);
+    }
+
     const { rows } = await query(
         `
         UPDATE tasks
-        SET title = COALESCE($3, title),
-            description = COALESCE($4, description),
-            priority = COALESCE($5, priority),
-            due_date = COALESCE($6, due_date),
-            assigned_to = $7,
-            updated_at = now()
+        SET ${setClauses.join(", ")}
         WHERE id = $1 AND board_id = $2
         RETURNING id
         `,
-        [
-            req.params.taskId,
-            req.board.id,
-            title ?? null,
-            description ?? null,
-            priority ?? null,
-            due_date ?? null,
-            assigned_to === undefined ? null : assigned_to
-        ]
+        params
     );
 
     if (!rows.length) {
