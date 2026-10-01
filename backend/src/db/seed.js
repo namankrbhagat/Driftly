@@ -320,55 +320,53 @@ const run = async () => {
         const assigneeId =
           assigneeKey ? uid[assigneeKey] : null;
 
-        await withTransaction(async (c) => {
-          await c.query(
-            `
-            INSERT INTO tasks
-              (
-                board_id,
-                column_id,
-                title,
-                description,
-                priority,
-                due_date,
-                assigned_to,
-                position,
-                created_by,
-                created_at,
-                updated_at
-              )
-            VALUES (
-                $1,
-                $2,
-                $3,
-                $4,
-                $5,
-                $6,
-                $7,
-                $8,
-                $9,
-                now() - interval '20 days',
-                $10
-              )
-            `,
-            [
-                boardId,
-                colIds[colIdx],
-                b.tasks[i],
-                i % 3 === 0
-                    ? `${b.tasks[i]} — details and acceptance criteria.`
-                    : null,
-                priority,
-                dueDate,
-                assigneeId,
-                (i + 1) * 1000,
-                ownerId,
-                updatedAt,
-            ]
-        );
+        await c.query(
+          `
+          INSERT INTO tasks
+            (
+              board_id,
+              column_id,
+              title,
+              description,
+              priority,
+              due_date,
+              assigned_to,
+              position,
+              created_by,
+              created_at,
+              updated_at
+            )
+          VALUES (
+              $1,
+              $2,
+              $3,
+              $4,
+              $5,
+              $6,
+              $7,
+              $8,
+              $9,
+              now() - interval '20 days',
+              $10
+            )
+          `,
+          [
+              boardId,
+              colIds[colIdx],
+              b.tasks[i],
+              i % 3 === 0
+                  ? `${b.tasks[i]} — details and acceptance criteria.`
+                  : null,
+              priority,
+              dueDate,
+              assigneeId,
+              (i + 1) * 1000,
+              ownerId,
+              updatedAt,
+          ]
+      );
 
-          taskTotal += 1;
-        });
+        taskTotal += 1;
       }
 
       const ownerName =
