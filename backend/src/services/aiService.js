@@ -39,16 +39,16 @@ const runPrompt = async (prompt) => {
     return response.text();
   } catch (error) {
     if (error.isApiError) throw error;
+    console.error("Gemini request failed:", error.message || error);
     const status = error.status || error.statusCode;
     if (status === 429) {
       throw new ApiError("AI quota exceeded. Check your Gemini plan/billing and try again later", 429);
     }
     if (status === 400 || status === 401 || status === 403) {
-      throw new ApiError("AI request rejected - verify your API key and quota", 503);
+      throw new ApiError(`AI request rejected: ${error.message || "verify API key and model"}`, 503);
     }
-    console.error("Gemini request failed:", error.message);
 
-    throw new ApiError("AI service is temporarily unavailable. Please try again later.", 502);
+    throw new ApiError(`AI service error: ${error.message || "temporarily unavailable"}`, 502);
   }
 };
 
